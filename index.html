@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>AguaParima - Sistema Inteligente de Bombeo de Agua</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="bombeo agua, control WhatsApp, PLC, automatización, sistema inteligente, sensores nivel, presión" name="keywords">
+        <meta content="AguaParima es un sistema inteligente de bombeo de agua que permite controlar el flujo de agua a través de WhatsApp. Activar bombas, consultar estado, recibir alertas y configurar horarios." name="description">
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:slnt,wght@-10..0,100..900&display=swap" rel="stylesheet">
+
+        <!-- Icon Font Stylesheet -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link rel="stylesheet" href="lib/animate/animate.min.css"/>
+        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+        
+        <!-- SweetAlert2 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+
+    <body>
+
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+        <!-- Topbar Start -->
+        <div class="container-fluid topbar px-0 px-lg-4 bg-light py-2 d-none d-lg-block">
+            <div class="container">
+                <div class="row gx-0 align-items-center">
+                    <div class="col-lg-8 text-center text-lg-start mb-lg-0">
+                        <div class="d-flex flex-wrap">
+                            <div class="border-end border-primary pe-3">
+                                <a href="#" class="text-muted small"><i class="fas fa-map-marker-alt text-primary me-2"></i>Venezuela</a>
+                            </div>
+                            <div class="ps-3">
+                                <a href="mailto:stalinlg@gmail.com" class="text-muted small"><i class="fas fa-envelope text-primary me-2"></i>stalinlg@gmail.com</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-center text-lg-end">
+                        <div class="d-flex justify-content-end">
+                            <div class="d-flex border-end border-primary pe-3">
+                                 <a class="btn p-0 text-primary me-0" href="#" onclick="showSocialAlert()"><i class="fab fa-instagram"></i></a>
+                             </div>
+                            <div class="dropdown ms-3">
+                                 <a href="#" class="dropdown-toggle text-dark" data-bs-toggle="dropdown"><small><i class="fas fa-globe-europe text-primary me-2"></i> Español</small></a>
+                                 <div class="dropdown-menu rounded">
+                                     <a href="#" class="dropdown-item active">Español</a>
+                                     <a href="#" class="dropdown-item" onclick="showLanguageAlert()">English</a>
+                                 </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Topbar End -->
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-fluid nav-bar px-0 px-lg-4 py-lg-0">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light"> 
+                    <a href="#" class="navbar-brand p-0">
+                         <img src="img/LogoAguaParima.png" alt="AguaParima" style="height: 50px;">
+                         <!-- <h1 class="text-primary mb-0"><i class="fas fa-tint me-2"></i> AguaParima</h1> -->
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav mx-0 mx-lg-auto">
+                            <a href="#home" class="nav-item nav-link active">Inicio</a>
+                            <a href="#services" class="nav-item nav-link">Servicios</a>
+                            <a href="#features" class="nav-item nav-link">Características</a>
+                            <a href="#faqs" class="nav-item nav-link">FAQ</a>
+                            <div class="nav-btn px-3">
+                                <a href="#" class="btn btn-primary rounded-pill py-2 px-4 ms-3 flex-shrink-0" onclick="showDemoAlert()"> Solicitar Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-none d-xl-flex flex-shrink-0 ps-4">
+                        <a href="#" class="btn btn-light btn-lg-square rounded-circle position-relative wow tada" data-wow-delay=".9s">
+                            <i class="fa fa-phone-alt fa-2x"></i>
+                            <div class="position-absolute" style="top: 7px; right: 12px;">
+                                <span><i class="fa fa-comment-dots text-secondary"></i></span>
+                            </div>
+                        </a>
+                        <div class="d-flex flex-column ms-3">
+                            <span>Contacta a Nuestros Expertos</span>
+                            <a href="tel:+58 426 511 0842"><span class="text-dark">Tel: +58 426 511 0842</span></a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- Navbar & Hero End -->
+
+        <!-- Modal Search Start -->
+        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content rounded-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex align-items-center bg-primary">
+                        <div class="input-group w-75 mx-auto d-flex">
+                            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                            <span id="search-icon-1" class="btn bg-light border nput-group-text p-3"><i class="fa fa-search"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Search End -->
+
+
+        <!-- Carousel Start -->
+        <div id="home" class="header-carousel owl-carousel">
+            <div class="header-carousel-item bg-primary">
+                <div class="carousel-caption">
+                    <div class="container">
+                        <div class="row g-4 align-items-center">
+                            <div class="col-lg-7 animated fadeInLeft">
+                                <div class="text-sm-center text-md-start">
+                                    <h4 class="text-white text-uppercase fw-bold mb-4">Bienvenido a AguaParima</h4>
+                                    <h1 class="display-1 text-white mb-4">Sistema de Bombeo</h1>
+                                    <p class="mb-5 fs-5">Sistema inteligente de bombeo de agua controlado por WhatsApp. Activa bombas, consulta estados, recibe alertas y configura horarios desde tu celular. 
+                                    </p>
+                                    <div class="d-flex justify-content-center justify-content-md-start flex-shrink-0 mb-4">
+                                        <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="#" onclick="showDemoAlert()"><i class="fas fa-play-circle me-2"></i> Ver Demo</a>
+                            <a class="btn btn-dark rounded-pill py-3 px-4 px-md-5 ms-2" href="#services">Conocer Más</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 animated fadeInRight">
+                                <div class="calrousel-img" style="object-fit: cover;">
+                                    <img src="img/carousel-2n.png" class="img-fluid w-100" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-carousel-item bg-primary">
+                <div class="carousel-caption">
+                    <div class="container">
+                        <div class="row gy-4 gy-lg-0 gx-0 gx-lg-5 align-items-center">
+                            <div class="col-lg-5 animated fadeInLeft">
+                                <div class="calrousel-img">
+                                    <img src="img/carousel-2n.png" class="img-fluid w-100" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-7 animated fadeInRight">
+                                <div class="text-sm-center text-md-end">
+                                    <h4 class="text-white text-uppercase fw-bold mb-4">Bienvenido a AguaParima</h4>
+                                    <h1 class="display-1 text-white mb-4">Sistema de Bombeo</h1>
+                                    <p class="mb-5 fs-5">Controla tu sistema de bombeo con sensores de nivel y presión. Chatbot con IA que entiende lenguaje natural y próximamente comandos de voz. 
+                                    </p>
+                                    <div class="d-flex justify-content-center justify-content-md-end flex-shrink-0 mb-4">
+                                        <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="#" onclick="showDemoAlert()"><i class="fas fa-play-circle me-2"></i> Ver Demo</a>
+                            <a class="btn btn-dark rounded-pill py-3 px-4 px-md-5 ms-2" href="#services">Conocer Más</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Carousel End -->
+
+        <!-- Feature Start -->
+        <div id="features" class="container-fluid feature bg-light py-5">
+            <div class="container py-5">
+                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+                    <h4 class="text-primary">Nuestras Características</h4>
+                    <h1 class="display-4 mb-4">AguaParima te Ofrece Control Total del Agua</h1>
+                    <p class="mb-0">Sistema inteligente de bombeo que combina tecnología PLC, sensores avanzados y comunicación por WhatsApp para brindarte el control completo de tu suministro de agua desde cualquier lugar.
+                    </p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="feature-item p-4 pt-0">
+                            <div class="feature-icon p-4 mb-4">
+                                <i class="fab fa-whatsapp fa-3x"></i>
+                            </div>
+                            <h4 class="mb-4">Control por WhatsApp</h4>
+                            <p class="mb-4">Controla tu sistema de bombeo directamente desde WhatsApp. Activa, desactiva y consulta el estado de tus bombas con simples mensajes de texto.
+                            </p>
+                            <a class="btn btn-primary rounded-pill py-2 px-4" href="#" onclick="showWhatsAppAlert()">Conocer Más</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="feature-item p-4 pt-0">
+                            <div class="feature-icon p-4 mb-4">
+                                <i class="fas fa-microchip fa-3x"></i>
+                            </div>
+                            <h4 class="mb-4">Tecnología PLC</h4>
+                            <p class="mb-4">Sistema basado en controladores lógicos programables (PLC) que garantizan operación confiable y automatizada de tu sistema de bombeo.
+                            </p>
+                            <a class="btn btn-primary rounded-pill py-2 px-4" href="#" onclick="showPLCAlert()">Conocer Más</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.6s">
+                        <div class="feature-item p-4 pt-0">
+                            <div class="feature-icon p-4 mb-4">
+                                <i class="fas fa-tachometer-alt fa-3x"></i>
+                            </div>
+                            <h4 class="mb-4">Sensores Inteligentes</h4>
+                            <p class="mb-4">Sensores de nivel de agua y presión que monitorean constantemente el estado del sistema y envían alertas automáticas cuando es necesario.
+                            </p>
+                            <a class="btn btn-primary rounded-pill py-2 px-4" href="#" onclick="showSensorsAlert()">Conocer Más</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.8s">
+                        <div class="feature-item p-4 pt-0">
+                            <div class="feature-icon p-4 mb-4">
+                                <i class="fas fa-robot fa-3x"></i>
+                            </div>
+                            <h4 class="mb-4">Chatbot con IA</h4>
+                            <p class="mb-4">Asistente virtual inteligente que entiende lenguaje natural y próximamente comandos de voz para una interacción más natural y eficiente.
+                            </p>
+                            <a class="btn btn-primary rounded-pill py-2 px-4" href="#" onclick="showChatbotAlert()">Conocer Más</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Feature End -->
+
+        <!-- About Start -->
+        <div id="about" class="container-fluid bg-light about pb-5">
+            <div class="container pb-5">
+                <div class="row g-5">
+                    <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
+                        <div class="about-item-content bg-white rounded p-5 h-100">
+                            <h4 class="text-primary">Acerca de AguaParima</h4>
+                            <h1 class="display-4 mb-4">Innovación en Control de Agua</h1>
+                            <p>AguaParima es un sistema revolucionario que combina tecnología PLC avanzada con la simplicidad de WhatsApp para ofrecerte el control total de tu sistema de bombeo de agua.
+                            </p>
+                            <p>Nuestro sistema utiliza sensores inteligentes y un chatbot con inteligencia artificial que entiende lenguaje natural, haciendo que el control de agua sea más accesible que nunca.
+                            </p>
+                            <p class="text-dark"><i class="fa fa-check text-primary me-3"></i>Ahorro de energía y agua optimizado</p>
+                            <p class="text-dark"><i class="fa fa-check text-primary me-3"></i>Control remoto desde cualquier lugar</p>
+                            <p class="text-dark mb-4"><i class="fa fa-check text-primary me-3"></i>Sistema adaptable a cualquier instalación</p>
+                            <a class="btn btn-primary rounded-pill py-3 px-5" href="#" onclick="showAguaParimaInfoAlert()">Más Información</a>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
+                        <div class="bg-white rounded p-5 h-100">
+                            <div class="row g-4 justify-content-center">
+                                <div class="col-12">
+                                    <div class="rounded bg-light">
+                                        <img src="img/about-1n.png" class="img-fluid rounded w-100" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="counter-item bg-light rounded p-3 h-100">
+                                        <div class="counter-counting">
+                                            <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">5</span>
+                                            <span class="h1 fw-bold text-primary">+</span>
+                                        </div>
+                                        <h4 class="mb-0 text-dark">Prototipos Desarrollados</h4>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="counter-item bg-light rounded p-3 h-100">
+                                        <div class="counter-counting">
+                                            <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">40</span>
+                                            <span class="h1 fw-bold text-primary">%</span>
+                                        </div>
+                                        <h4 class="mb-0 text-dark">Ahorro Energético</h4>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="counter-item bg-light rounded p-3 h-100">
+                                        <div class="counter-counting">
+                                            <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">24</span>
+                                            <span class="h1 fw-bold text-primary">/7</span>
+                                        </div>
+                                        <h4 class="mb-0 text-dark">Monitoreo Continuo</h4>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="counter-item bg-light rounded p-3 h-100">
+                                        <div class="counter-counting">
+                                            <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">3</span>
+                                            <span class="h1 fw-bold text-primary">+</span>
+                                        </div>
+                                        <h4 class="mb-0 text-dark">Años de Investigación</h4>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="counter-item bg-light rounded p-3 h-100">
+                                        <div class="counter-counting">
+                                            <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">100</span>
+                                            <span class="h1 fw-bold text-primary">+</span>
+                                        </div>
+                                        <h4 class="mb-0 text-dark">Horas de Pruebas</h4>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                     <div class="counter-item bg-light rounded p-3 h-100">
+                                         <div class="counter-counting">
+                                             <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">10</span>
+                                             <span class="h1 fw-bold text-primary">/10</span>
+                                         </div>
+                                         <h4 class="mb-0 text-dark">Soporte Técnico</h4>
+                                     </div>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+        <!-- Service Start -->
+        <div id="services" class="container-fluid service py-5">
+            <div class="container py-5">
+                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+                    <h4 class="text-primary">Nuestros Servicios</h4>
+                    <h1 class="display-4 mb-4">Funcionalidades Avanzadas de AguaParima</h1>
+                    <p class="mb-0">Descubre todas las capacidades de nuestro sistema inteligente de bombeo de agua. Desde control remoto hasta monitoreo en tiempo real, AguaParima ofrece soluciones completas para la gestión eficiente del agua.
+                    </p>
+                </div>
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="service-item">
+                            <div class="service-img">
+                                <img src="img/blog-1n.png" class="img-fluid rounded-top w-100" alt="">
+                                <div class="service-icon p-3">
+                                    <i class="fab fa-whatsapp fa-2x"></i>
+                                </div>
+                            </div>
+                            <div class="service-content p-4">
+                                <div class="service-content-inner">
+                                    <a href="#" class="d-inline-block h4 mb-4">Control por WhatsApp</a>
+                                    <p class="mb-4">Activa, desactiva y controla tu sistema de bombeo directamente desde WhatsApp con comandos simples.</p>
+                                    <a class="btn btn-primary rounded-pill py-2 px-4" href="#" onclick="showWhatsAppAlert()">Conocer Más</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="service-item">
+                            <div class="service-img">
+                                <img src="img/blog-2n.png" class="img-fluid rounded-top w-100" alt="">
+                                <div class="service-icon p-3">
+                                    <i class="fas fa-chart-line fa-2x"></i>
+                                </div>
+                            </div>
+                            <div class="service-content p-4">
+                                <div class="service-content-inner">
+                                    <a href="#" class="d-inline-block h4 mb-4">Monitoreo en Tiempo Real</a>
+                                    <p class="mb-4">Supervisa el estado de tus bombas, niveles de agua y presión las 24 horas del día.</p>
+                                    <a class="btn btn-primary rounded-pill py-2 px-4" href="#" onclick="showMonitoringAlert()">Conocer Más</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.6s">
+                        <div class="service-item">
+                            <div class="service-img">
+                                <img src="img/blog-3n.png" class="img-fluid rounded-top w-100" alt="">
+                                <div class="service-icon p-3">
+                                    <i class="fas fa-clock fa-2x"></i>
+                                </div>
+                            </div>
+                            <div class="service-content p-4">
+                                <div class="service-content-inner">
+                                    <a href="#" class="d-inline-block h4 mb-4">Programación de Horarios</a>
+                                    <p class="mb-4">Configura horarios automáticos de racionamiento y optimiza el consumo de agua según tus necesidades.</p>
+                                    <a class="btn btn-primary rounded-pill py-2 px-4" href="#" onclick="showSchedulingAlert()">Conocer Más</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.8s">
+                        <div class="service-item">
+                            <div class="service-img">
+                                <img src="img/blog-4n.png" class="img-fluid rounded-top w-100" alt="">
+                                <div class="service-icon p-3">
+                                    <i class="fas fa-bell fa-2x"></i>
+                                </div>
+                            </div>
+                            <div class="service-content p-4">
+                                <div class="service-content-inner">
+                                    <a href="#" class="d-inline-block h4 mb-4">Alertas Inteligentes</a>
+                                    <p class="mb-4">Recibe notificaciones automáticas sobre fallos, mantenimiento y estados críticos del sistema.</p>
+                                    <a class="btn btn-primary rounded-pill py-2 px-4" href="#" onclick="showSmartAlertsAlert()">Conocer Más</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Service End -->
+
+        <!-- FAQs Start -->
+        <div id="faqs" class="container-fluid faq-section bg-light py-5">
+            <div class="container py-5">
+                <div class="row g-5 align-items-center">
+                    <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
+                        <div class="h-100">
+                            <div class="mb-5">
+                                <h4 class="text-primary">Preguntas Frecuentes</h4>
+                                <h1 class="display-4 mb-0">Dudas Comunes sobre AguaParima</h1>
+                            </div>
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button border-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            ¿Cómo funciona el control por WhatsApp?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse show active" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body rounded">
+                                            Simplemente envía mensajes de texto a nuestro chatbot de WhatsApp con comandos como "encender bomba", "apagar sistema" o "estado del agua". El sistema entiende lenguaje natural y ejecuta las acciones de forma inmediata y segura.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingTwo">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            ¿Qué pasa si se va la luz o internet?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            AguaParima cuenta con sistemas de respaldo y memoria interna. En caso de corte de luz, el sistema mantiene las configuraciones programadas. Cuando se restablece la conexión a internet, sincroniza automáticamente el estado y notifica cualquier evento ocurrido.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingThree">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            ¿Es compatible con cualquier tipo de bomba?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            Sí, AguaParima es compatible con bombas centrífugas, sumergibles, periféricas y de presión. Nuestro sistema PLC se adapta a diferentes voltajes y potencias. Incluimos la instalación y configuración personalizada según tu equipo específico.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.4s">
+                        <img src="img/carousel-2n.png" class="img-fluid w-100" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FAQs End -->
+
+
+
+
+
+
+
+
+        <!-- Contact Start -->
+        <div id="contact" class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+        <!-- Footer Start -->
+        <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-xl-9">
+                        <div class="mb-5">
+                            <div class="row g-4">
+                                <div class="col-md-6 col-lg-6 col-xl-5">
+                                    <div class="footer-item">
+                                        <a href="index.html" class="p-0">
+                                            <h3 class="text-white"><i class="fas fa-tint me-3"></i> AguaParima</h3>
+                                            <!-- <img src="img/logo.png" alt="Logo"> -->
+                                        </a>
+                                        <p class="text-white mb-4">Sistema inteligente de bombeo de agua con control por WhatsApp. Tecnología PLC avanzada para la gestión eficiente y automatizada de tu suministro de agua.</p>
+                                        <div class="footer-btn d-flex">
+                                            <a class="btn btn-md-square rounded-circle me-0" href="#" onclick="showSocialAlert()"><i class="fab fa-instagram"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-xl-3">
+                                    <div class="footer-item">
+                                        <h4 class="text-white mb-4">Enlaces Útiles</h4>
+                                        <a href="#home"><i class="fas fa-angle-right me-2"></i> Inicio</a>
+                                        <a href="#features"><i class="fas fa-angle-right me-2"></i> Características</a>
+                                        <a href="#services"><i class="fas fa-angle-right me-2"></i> Servicios</a>
+                                        <a href="#faqs"><i class="fas fa-angle-right me-2"></i> FAQ</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-xl-4">
+                                    <div class="footer-item">
+                                        <h4 class="mb-4 text-white">Contacto</h4>
+                                        <div class="d-flex flex-column">
+                                            <div class="d-flex align-items-center mb-3">
+                                                <i class="fas fa-map-marker-alt text-primary me-3"></i>
+                                                <span class="text-white">Caracas, Venezuela</span>
+                                            </div>
+                                            <div class="d-flex align-items-center mb-3">
+                                                <i class="fas fa-phone text-primary me-3"></i>
+                                                <span class="text-white">+58 426 511 0842</span>
+                                            </div>
+                                            <div class="d-flex align-items-center mb-3">
+                                                <i class="fab fa-whatsapp text-primary me-3"></i>
+                                                <span class="text-white">+58 426 511 0842</span>
+                                            </div>
+                                            <div class="d-flex align-items-center mb-3">
+                                                <i class="fas fa-envelope text-primary me-3"></i>
+                                                <span class="text-white">stalinlg@gmail.com</span>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-clock text-primary me-3"></i>
+                                                <span class="text-white">Lun - Vie: 8:00 AM - 6:00 PM</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-5" style="border-top: 1px solid rgba(255, 255, 255, 0.08);">
+                            <div class="row g-0">
+                                <div class="col-12">
+                                    <div class="row g-4">
+                                        <div class="col-lg-6 col-xl-4">
+                                            <div class="d-flex">
+                                                <div class="btn-xl-square bg-primary text-white rounded p-4 me-4">
+                                                    <i class="fas fa-map-marker-alt fa-2x"></i>
+                                                </div>
+                                                <div>
+                                                    <h4 class="text-white">Dirección</h4>
+                                                    <p class="mb-0">Caracas, Venezuela</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-xl-4">
+                                            <div class="d-flex">
+                                                <div class="btn-xl-square bg-primary text-white rounded p-4 me-4">
+                                                    <i class="fas fa-envelope fa-2x"></i>
+                                                </div>
+                                                <div>
+                                                    <h4 class="text-white">Correo Electrónico</h4>
+                                                    <p class="mb-0">stalinlg@gmail.com</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-xl-4">
+                                            <div class="d-flex">
+                                                <div class="btn-xl-square bg-primary text-white rounded p-4 me-4">
+                                                    <i class="fa fa-phone-alt fa-2x"></i>
+                                                </div>
+                                                <div>
+                                                    <h4 class="text-white">Teléfono</h4>
+                                                    <p class="mb-0">+58 426 511 0842</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3">
+                        <div class="footer-item">
+                            <h4 class="text-white mb-4">Boletín Informativo</h4>
+                            <p class="text-white mb-3">Mantente al día con las últimas actualizaciones y mejoras de AguaParima. Recibe consejos de eficiencia energética y noticias del sistema.</p>
+                            <div class="position-relative rounded-pill mb-4">
+                                <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Ingresa tu correo">
+                                <button type="button" class="btn btn-primary rounded-pill position-absolute top-0 end-0 py-2 mt-2 me-2" onclick="showSubscriptionAlert()">Suscribirse</button>
+                            </div>
+                            <div class="d-flex flex-shrink-0">
+                                <div class="footer-btn">
+                                    <a href="#" class="btn btn-lg-square rounded-circle position-relative wow tada" data-wow-delay=".9s">
+                                        <i class="fa fa-phone-alt fa-2x"></i>
+                                        <div class="position-absolute" style="top: 2px; right: 12px;">
+                                            <span><i class="fa fa-comment-dots text-secondary"></i></span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="d-flex flex-column ms-3 flex-shrink-0">
+                                    <span>Llama a Nuestros Expertos</span>
+                                    <a href="tel:+58 426 511 0842"><span class="text-white">Tel: +58 426 511 0842</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+        
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright py-4">
+            <div class="container">
+                <div class="row g-4 align-items-center">
+                    <div class="col-md-6 text-center text-md-end mb-md-0">
+                        <span class="text-body"><a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>AguaParima</a>, All right reserved.</span>
+                    </div>
+                    <div class="col-md-6 text-center text-md-start text-body">
+                        <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+                        <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                        <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                        Designed By <a class="border-bottom text-white" href="https://htmlcodex.com">HTML Codex</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
+
+        
+        <!-- JavaScript Libraries -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/wow/wow.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/counterup/counterup.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+        
+        <!-- Smooth Scroll Navigation -->
+        <script>
+        // Smooth scroll for navigation links
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all navigation links
+            const navLinks = document.querySelectorAll('a[href^="#"]');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        // Calculate offset for fixed navbar
+                        const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                        const targetPosition = targetSection.offsetTop - navbarHeight - 20;
+                        
+                        // Smooth scroll to target
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Update active nav link
+                        document.querySelectorAll('.nav-link').forEach(navLink => {
+                            navLink.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                    }
+                });
+            });
+            
+            // Update active nav link on scroll
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('[id]');
+                const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - navbarHeight - 50;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                // Update active nav link
+                document.querySelectorAll('.nav-link').forEach(navLink => {
+                    navLink.classList.remove('active');
+                    if (navLink.getAttribute('href') === '#' + current) {
+                        navLink.classList.add('active');
+                    }
+                });
+            });
+        });
+        </script>
+        
+        <!-- Custom JavaScript -->
+        <script>
+        function showSocialAlert() {
+            Swal.fire({
+                title: 'Redes Sociales',
+                text: 'Actualmente nuestras redes sociales están en construcción. ¡Pronto estaremos disponibles!',
+                icon: 'info',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#015fc9'
+            });
+        }
+        
+        function showLanguageAlert() {
+            Swal.fire({
+                title: 'Idioma',
+                text: 'La versión en inglés está actualmente en construcción. ¡Pronto estará disponible!',
+                icon: 'info',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#015fc9'
+            });
+        }
+        
+        function showWhatsAppAlert() {
+            Swal.fire({
+                title: 'Control por WhatsApp',
+                html: `
+                    <div style="text-align: left;">
+                        <h5>🚀 Características principales:</h5>
+                        <ul>
+                            <li><strong>Activación remota:</strong> Enciende y apaga bombas desde cualquier lugar</li>
+                            <li><strong>Consulta de estado:</strong> Verifica el funcionamiento en tiempo real</li>
+                            <li><strong>Alertas automáticas:</strong> Recibe notificaciones de fallos o mantenimiento</li>
+                            <li><strong>Programación de horarios:</strong> Configura encendido/apagado automático</li>
+                            <li><strong>Historial de operación:</strong> Revisa el registro de actividades</li>
+                        </ul>
+                        <p><strong>💡 Ventaja:</strong> Control total desde tu celular, sin necesidad de aplicaciones adicionales.</p>
+                    </div>
+                `,
+                icon: 'info',
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: '#015fc9',
+                width: '600px'
+            });
+        }
+        
+        function showPLCAlert() {
+            Swal.fire({
+                title: 'Tecnología PLC',
+                html: `
+                    <div style="text-align: left;">
+                        <h5>⚙️ Controlador Lógico Programable:</h5>
+                        <ul>
+                            <li><strong>Alta confiabilidad:</strong> Diseñado para operar 24/7 sin interrupciones</li>
+                            <li><strong>Protección avanzada:</strong> Previene sobrecargas y cortocircuitos</li>
+                            <li><strong>Automatización inteligente:</strong> Toma decisiones basadas en sensores</li>
+                            <li><strong>Mantenimiento predictivo:</strong> Detecta problemas antes de que ocurran</li>
+                            <li><strong>Escalabilidad:</strong> Fácil expansión para múltiples bombas</li>
+                        </ul>
+                        <p><strong>💡 Ventaja:</strong> Tecnología industrial probada que garantiza operación segura y eficiente.</p>
+                    </div>
+                `,
+                icon: 'info',
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: '#015fc9',
+                width: '600px'
+            });
+        }
+        
+        function showSensorsAlert() {
+            Swal.fire({
+                title: 'Sensores Inteligentes',
+                html: `
+                    <div style="text-align: left;">
+                        <h5>📊 Monitoreo en tiempo real:</h5>
+                        <ul>
+                            <li><strong>Sensor de nivel:</strong> Mide la cantidad de agua en tanques y cisternas</li>
+                            <li><strong>Sensor de presión:</strong> Controla la presión del sistema de tuberías</li>
+                            <li><strong>Sensor de flujo:</strong> Detecta el caudal de agua en tiempo real</li>
+                            <li><strong>Alertas preventivas:</strong> Notifica antes de que ocurran problemas</li>
+                            <li><strong>Calibración automática:</strong> Se ajustan automáticamente para mayor precisión</li>
+                        </ul>
+                        <p><strong>💡 Ventaja:</strong> Prevención de problemas y optimización del consumo energético.</p>
+                    </div>
+                `,
+                icon: 'info',
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: '#015fc9',
+                width: '600px'
+            });
+        }
+        
+        function showChatbotAlert() {
+            Swal.fire({
+                title: 'Chatbot con IA',
+                html: `
+                    <div style="text-align: left;">
+                        <h5>🤖 Asistente Virtual Inteligente:</h5>
+                        <ul>
+                            <li><strong>Lenguaje natural:</strong> Entiende comandos en español conversacional</li>
+                            <li><strong>Comandos de voz:</strong> Próximamente control por voz (en desarrollo)</li>
+                            <li><strong>Respuestas contextuales:</strong> Comprende el contexto de tus consultas</li>
+                            <li><strong>Aprendizaje continuo:</strong> Mejora con cada interacción</li>
+                            <li><strong>Soporte 24/7:</strong> Disponible en cualquier momento del día</li>
+                        </ul>
+                        <p><strong>💡 Ventaja:</strong> Interacción natural y eficiente, como hablar con un experto.</p>
+                    </div>
+                `,
+                icon: 'info',
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: '#015fc9',
+                width: '600px'
+            });
+        }
+        
+        function showDemoAlert() {
+            Swal.fire({
+                title: '<strong>Demo en Construcción</strong>',
+                icon: 'info',
+                html: `
+                    <div style="text-align: center; font-size: 16px; line-height: 1.6;">
+                        <h5 style="color: #0d6efd; margin-bottom: 15px;">🚧 Próximamente Disponible</h5>
+                        
+                        <p>El demo de <strong>AguaParima</strong> está actualmente en construcción.</p>
+                        <p>Pronto estará listo para el público y podrás experimentar todas las funcionalidades de nuestro sistema inteligente de bombeo de agua.</p>
+                        
+                        <p style="margin-top: 20px; font-style: italic; color: #666;">
+                            "¡Mantente atento para ser el primero en probarlo!"
+                        </p>
+                    </div>
+                `,
+                showCloseButton: true,
+                showCancelButton: false,
+                focusConfirm: false,
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: '#0d6efd',
+                width: '500px'
+            });
+        }
+        
+        function showSubscriptionAlert() {
+            Swal.fire({
+                title: '<strong>Suscripción en Construcción</strong>',
+                icon: 'info',
+                html: `
+                    <div style="text-align: center; font-size: 16px; line-height: 1.6;">
+                        <h5 style="color: #0d6efd; margin-bottom: 15px;">📧 Newsletter Próximamente</h5>
+                        
+                        <p>Nuestro sistema de newsletter está actualmente en desarrollo.</p>
+                        <p>¡Pronto podrás suscribirte para recibir las últimas noticias y actualizaciones de <strong>AguaParima</strong>!</p>
+                        
+                        <p style="margin-top: 20px; font-style: italic; color: #666;">
+                            "¡Gracias por tu interés en mantenerte informado!"
+                        </p>
+                    </div>
+                `,
+                showCloseButton: true,
+                showCancelButton: false,
+                focusConfirm: false,
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: '#0d6efd',
+                width: '500px'
+            });
+        }
+        
+        function showAguaParimaInfoAlert() {
+            Swal.fire({
+                title: '<strong>Acerca de AguaParima</strong>',
+                icon: 'info',
+                html: `
+                    <div style="text-align: left; font-size: 14px; line-height: 1.6;">
+                        <h5 style="color: #0d6efd; margin-bottom: 15px;">🚀 Innovación en Control de Agua</h5>
+                        
+                        <p><strong>AguaParima</strong> es un sistema revolucionario que transforma la gestión del agua mediante:</p>
+                        
+                        <div style="margin: 15px 0;">
+                            <h6 style="color: #0d6efd;">💧 Tecnología Avanzada:</h6>
+                            <ul style="margin-left: 20px;">
+                                <li>Controladores PLC de última generación</li>
+                                <li>Sensores IoT de alta precisión</li>
+                                <li>Inteligencia artificial integrada</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin: 15px 0;">
+                            <h6 style="color: #0d6efd;">📱 Control Intuitivo:</h6>
+                            <ul style="margin-left: 20px;">
+                                <li>Interfaz WhatsApp familiar y fácil</li>
+                                <li>Comandos de voz próximamente</li>
+                                <li>Monitoreo 24/7 desde cualquier lugar</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin: 15px 0;">
+                            <h6 style="color: #0d6efd;">🌱 Beneficios Garantizados:</h6>
+                            <ul style="margin-left: 20px;">
+                                <li>Ahorro energético hasta 40%</li>
+                                <li>Reducción desperdicio de agua</li>
+                                <li>Mantenimiento predictivo</li>
+                                <li>Instalación en cualquier sistema existente</li>
+                            </ul>
+                        </div>
+                        
+                        <p style="margin-top: 20px; font-style: italic; color: #666;">
+                            "Hacemos que el control del agua sea tan simple como enviar un mensaje"
+                        </p>
+                    </div>
+                `,
+                showCloseButton: true,
+                showCancelButton: false,
+                focusConfirm: false,
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: '#0d6efd',
+                width: '600px'
+            });
+        }
+        
+        function showWhatsAppAlert() {
+            Swal.fire({
+                title: '<strong>Control por WhatsApp</strong>',
+                icon: 'success',
+                html: `
+                    <div style="text-align: left; font-size: 14px; line-height: 1.6;">
+                        <h5 style="color: #25D366; margin-bottom: 15px;">📱 Control Total desde WhatsApp</h5>
+                        
+                        <div style="margin: 15px 0;">
+                            <h6 style="color: #0d6efd;">🎮 Comandos Disponibles:</h6>
+                            <ul style="margin-left: 20px;">
+                                <li><strong>"Encender bomba"</strong> - Activa el sistema de bombeo</li>
+                                <li><strong>"Apagar bomba"</strong> - Desactiva el sistema</li>
+                                <li><strong>"Estado"</strong> - Consulta el estado actual</li>
+                                <li><strong>"Presión"</strong> - Verifica niveles de presión</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin: 15px 0;">
+                            <h6 style="color: #0d6efd;">⚡ Características:</h6>
+                            <ul style="margin-left: 20px;">
+                                <li>Respuesta instantánea (menos de 3 segundos)</li>
+                                <li>Confirmación automática de cada acción</li>
+                                <li>Historial de comandos ejecutados</li>
+                                <li>Múltiples usuarios autorizados</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin: 15px 0;">
+                            <h6 style="color: #0d6efd;">🔒 Seguridad:</h6>
+                            <ul style="margin-left: 20px;">
+                                <li>Autenticación por número telefónico</li>
+                                <li>Códigos de seguridad únicos</li>
+                                <li>Registro de todas las actividades</li>
+                            </ul>
+                        </div>
+                        
+                        <p style="margin-top: 20px; font-style: italic; color: #666;">
+                            "Controla tu sistema de agua con la misma facilidad que chateas con tus amigos"
+                        </p>
+                    </div>
+                `,
+                showCloseButton: true,
+                showCancelButton: false,
+                focusConfirm: false,
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: '#25D366',
+                width: '650px'
+            });
+        }
+        
+        function showMonitoringAlert() {
+            Swal.fire({
+                title: '<strong>Monitoreo en Tiempo Real</strong>',
+                icon: 'info',
+                html: `
+                    <div style="text-align: left; font-size: 14px; line-height: 1.6;">
+                        <h5 style="color: #0d6efd; margin-bottom: 15px;">📊 Supervisión Continua 24/7</h5>
+                        
+                        <div style="margin: 15px 0;">
+                            <h6 style="color: #0d6efd;">📈 Métricas Monitoreadas:</h6>
+                            <ul style="margin-left: 20px;">
+                                <li><strong>Presión del sistema</strong> - En tiempo real (PSI/Bar)</li>
+                                <li><strong>Nivel de tanques</strong> - Porcentaje de llenado</li>
+                                <li><strong>Flujo de agua</strong> - Litros por minuto</li>
+                                <li><strong>Consumo energético</strong> - kWh en tiempo real</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin: 15px 0;">
+                            <h6 style="color: #0d6efd;">🎯 Alertas Automáticas:</h6>
+                            <ul style="margin-left: 20px;">
+                                <li>Presión baja o alta fuera de rangos</li>
+                                <li>Tanques llenos o vacíos</li>
+                                <li>Consumo energético anormal</li>
+                                <li>Fallas en sensores o equipos</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin: 15px 0;">
+                            <h6 style="color: #0d6efd;">📱 Acceso Remoto:</h6>
+                            <ul style="margin-left: 20px;">
+                                <li>Dashboard web responsive</li>
+                                <li>Reportes automáticos por WhatsApp</li>
+                                <li>Gráficos históricos de tendencias</li>
+                                <li>Exportación de datos en Excel</li>
+                            </ul>
+                        </div>
+                        
+                        <p style="margin-top: 20px; font-style: italic; color: #666;">
+                            "Nunca más te preocupes por el estado de tu sistema de agua"
+                        </p>
+                    </div>
+                `,
+                showCloseButton: true,
+                showCancelButton: false,
+                focusConfirm: false,
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: '#0d6efd',
+                width: '650px'
+            });
+        }
+        
+        function showSchedulingAlert() {
+            Swal.fire({
+                title: '<strong>Programación de Horarios</strong>',
+                icon: 'warning',
+                html: `
+                    <div style="text-align: left; font-size: 14px; line-height: 1.6;">
+                        <h5 style="color: #ff6b35; margin-bottom: 15px;">⏰ Automatización Inteligente</h5>
+                        
+                        <div style="margin: 15px 0;">
+                            <h6 style="color: #0d6efd;">🕐 Programación Flexible:</h6>
+                            <ul style="margin-left: 20px;">
+                                <li><strong>Horarios diarios</strong> - Configuración por días de la semana</li>
+                                <li><strong>Horarios estacionales</strong> - Adaptación automática</li>
+                                <li><strong>Racionamiento inteligente</strong> - Optimización de recursos</li>
+                                <li><strong>Horarios de emergencia</strong> - Activación manual</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin: 15px 0;">
+                            <h6 style="color: #0d6efd;">💡 Funciones Avanzadas:</h6>
+                            <ul style="margin-left: 20px;">
+                                <li>Detección de patrones de consumo</li>
+                                <li>Ajuste automático según demanda</li>
+                                <li>Priorización por zonas críticas</li>
+                                <li>Integración con tarifas eléctricas</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin: 15px 0;">
+                            <h6 style="color: #0d6efd;">🎮 Control Total:</h6>
+                            <ul style="margin-left: 20px;">
+                                <li>Modificación de horarios por WhatsApp</li>
+                                <li>Activación/desactivación temporal</li>
+                                <li>Programación de hasta 10 horarios diferentes</li>
+                                <li>Backup automático de configuraciones</li>
+                            </ul>
+                        </div>
+                        
+                        <p style="margin-top: 20px; font-style: italic; color: #666;">
+                            "Tu sistema trabaja inteligentemente, incluso cuando duermes"
+                        </p>
+                    </div>
+                `,
+                showCloseButton: true,
+                showCancelButton: false,
+                focusConfirm: false,
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: '#ff6b35',
+                width: '650px'
+            });
+        }
+        
+        function showSmartAlertsAlert() {
+            Swal.fire({
+                title: '<strong>Alertas Inteligentes</strong>',
+                icon: 'error',
+                html: `
+                    <div style="text-align: left; font-size: 14px; line-height: 1.6;">
+                        <h5 style="color: #dc3545; margin-bottom: 15px;">🔔 Notificaciones Proactivas</h5>
+                        
+                        <div style="margin: 15px 0;">
+                            <h6 style="color: #0d6efd;">⚠️ Tipos de Alertas:</h6>
+                            <ul style="margin-left: 20px;">
+                                <li><strong>Críticas</strong> - Fallas del sistema, cortes de energía</li>
+                                <li><strong>Preventivas</strong> - Mantenimiento programado</li>
+                                <li><strong>Informativas</strong> - Reportes de consumo, estadísticas</li>
+                                <li><strong>Personalizadas</strong> - Configuradas por el usuario</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin: 15px 0;">
+                            <h6 style="color: #0d6efd;">📲 Canales de Notificación:</h6>
+                            <ul style="margin-left: 20px;">
+                                <li>WhatsApp (principal)</li>
+                                <li>SMS de respaldo</li>
+                                <li>Email con detalles técnicos</li>
+                                <li>Llamadas automáticas para emergencias</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin: 15px 0;">
+                            <h6 style="color: #0d6efd;">🤖 Inteligencia Artificial:</h6>
+                            <ul style="margin-left: 20px;">
+                                <li>Predicción de fallas antes de que ocurran</li>
+                                <li>Análisis de patrones anómalos</li>
+                                <li>Recomendaciones de optimización</li>
+                                <li>Aprendizaje continuo del sistema</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin: 15px 0;">
+                            <h6 style="color: #0d6efd;">⚙️ Configuración:</h6>
+                            <ul style="margin-left: 20px;">
+                                <li>Niveles de prioridad personalizables</li>
+                                <li>Horarios de silencio (modo nocturno)</li>
+                                <li>Múltiples contactos de emergencia</li>
+                                <li>Escalamiento automático de alertas</li>
+                            </ul>
+                        </div>
+                        
+                        <p style="margin-top: 20px; font-style: italic; color: #666;">
+                            "Anticipamos los problemas para que nunca te tomen por sorpresa"
+                        </p>
+                    </div>
+                `,
+                showCloseButton: true,
+                showCancelButton: false,
+                focusConfirm: false,
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: '#dc3545',
+                width: '650px'
+            });
+        }
+        </script>
+    </body>
+
+</html>
